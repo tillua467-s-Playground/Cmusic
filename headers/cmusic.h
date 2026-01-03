@@ -2,5 +2,6 @@
 #define CMUSIC_H
 
 #include <raylib.h>
+#include "draw.h"
 
 #endif
