@@ -3,6 +3,18 @@
 
 #include <raylib.h>
 
+// colors
+typedef struct UiCol
+{
+    Color c1;
+    Color c2;
+    Color c3;
+    Color c4;
+    Color c5;
+} UiCol;
+
+extern UiCol col;
+
 typedef struct Circle
 {
     Vector2 centerXnY;
