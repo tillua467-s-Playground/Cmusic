@@ -6,8 +6,6 @@ int main()
 {
     SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_VSYNC_HINT);
 
-    Circle Button = {0};
-
     InitWindow(GetMonitorWidth(0) ? GetMonitorWidth(0) / 2 : 800, GetMonitorHeight(0) ? GetMonitorHeight(0) / 2 : 450, "Cmusic - by tillua467");
 
     // GUI varibles
@@ -27,6 +25,10 @@ int main()
     ConBox.width = 50;
     ConBox.height = 50;
 
+    Circle PnP = {0};
+    Circle Pre = {0};
+    Circle Nex = {0};
+
     int lWidth = MeasureText("CMUSIC", fSize);
 
     while (!WindowShouldClose())
@@ -39,12 +41,25 @@ int main()
         cBox.height = GetScreenHeight() * 0.75f;
         ConBox.x = mBox.width;
         ConBox.y = cBox.height;
-        ConBox.height = GetScreenHeight();
-        ConBox.width = GetScreenWidth();
+        ConBox.height = GetScreenHeight() - cBox.height;
+        ConBox.width = GetScreenWidth() - cBox.width;
 
-        Button.centerXnY = (Vector2){
-            GetScreenWidth() / 2,
-            GetScreenHeight() / 2 + 120};
+        float btnRad = ConBox.height * 0.25f;
+
+        PnP.radius = btnRad;
+        Pre.radius = btnRad * 0.9f;
+        Nex.radius = btnRad * 0.9f;
+        PnP.centerXnY = (Vector2){
+            cBox.x + (cBox.width / 2),
+            cBox.height + ((ConBox.height / 2)) * 0.7f};
+
+        Pre.centerXnY = (Vector2){
+            cBox.x + ((cBox.width / 2) - (cBox.width * 0.25f)),
+            cBox.height + ((ConBox.height / 2) + 5)};
+
+        Nex.centerXnY = (Vector2){
+            cBox.x + ((cBox.width / 2) + (cBox.width * 0.25f)),
+            cBox.height + ((ConBox.height / 2) + 5)};
 
         BeginDrawing();
         ClearBackground(RAYWHITE);
@@ -55,19 +70,21 @@ int main()
         DrawRectangleRec(mBox, col.c2);
         DrawRectangleRec(cBox, col.c3);
         DrawRectangleRec(ConBox, col.c4);
-        // DrawCircleCr(Button, RED);
+        DrawCircleCr(PnP, BLUE);
+        DrawCircleCr(Pre, RED);
+        DrawCircleCr(Nex, GREEN);
 
-        // for hover effect
-        if (hoverButton(&Button))
-            Button.radius = 55.0f;
-        else
-            Button.radius = 50.0f;
+        // // for hover effect
+        // if (hoverButton(&PnP))
+        //     PnP.radius = 55.0f;
+        // else
+        //     PnP.radius = 50.0f;
 
-        // this how we check if it's clicked or not
-        if (hoverButton(&Button) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-        {
-            Button.radius = 58.0f;
-        }
+        // // this how we check if it's clicked or not
+        // if (hoverButton(&PnP) && IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+        // {
+        //     PnP.radius = 58.0f;
+        // }
         EndDrawing();
     }
 
